@@ -37,13 +37,15 @@
 
 ;;; Code:
 
+(defvar escr-column 80
+  "Indicates how many columns include to make visible in the
+  screenshot.")
 
 (defun escr-shot ()
   (interactive)
   (let ((window-id (frame-parameter (selected-frame) 'window-id))
         (char-height (frame-char-height))
         (char-width (frame-char-width))
-        (column-width 80)
         (filename "/home/demi/test2.jpg")
         (window-start-line nil)
         (window-region-beginning-line nil)
@@ -63,7 +65,7 @@
     (goto-char selection-end)
     (setq window-region-end-line (line-number-at-pos))
     (goto-char current-point)
-    (setq screenshot-width (* char-width column-width))
+    (setq screenshot-width (* char-width escr-column))
     (setq screenshot-height (* (+ (- window-region-end-line
                                      window-region-beginning-line)
                                   1)
