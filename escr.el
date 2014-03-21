@@ -118,3 +118,29 @@ screenshot.")
                   "-crop" crop 
                   "-quality" "100" 
                   filename)))
+
+(defun esrc-org-babel-after-execute-hook ()
+  (interactive)
+  (let* ((info (org-babel-get-src-block-info))
+         (lang (nth 0 info))
+         (mode (intern (format "%s-mode" lang)))
+         (params (nth 2 info))
+         (scs-param (cdr (assoc :scs params)))
+         (escr-buffer nil))
+    (when (string= scs-param "yes")
+      (setq escr-buffer (get-buffer-create "*Escr*"))
+      (with-current-buffer escr-buffer
+        (switch-to-buffer escr-buffer)
+        (erase-buffer)
+        (insert body)
+        (when (fboundp mode)
+          (funcall mode))
+        (jit-lock-fontify-now (point-min) (point-max))
+        (mark-whole-buffer)
+        (escr-shot)
+        (kill-buffer)))))
+
+(defun esrc-setup ()
+  (interactive)
+  (add-hook 'org-babel-after-execute-hook
+            'esrc-org-babel-after-execute-hook))
