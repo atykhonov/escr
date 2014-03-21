@@ -51,6 +51,11 @@ will looks like a little bit better.")
                                    "screenshots")
   "Path to directory where screenshots are going to be stored.")
 
+(defvar escr-filename-format "%Y-%m-%d-%H%M%S.png"
+  "Screenshots filename format.")
+
+
+
 (defun escr-shot ()
   (interactive)
   (let ((window-id (frame-parameter (selected-frame) 'window-id))
@@ -58,7 +63,9 @@ will looks like a little bit better.")
         (char-width (frame-char-width))
         (filename (expand-file-name
                    (concat escr-screenshot-directory
-                           "/test2.jpg")))
+                           "/"
+                           (format-time-string escr-filename-format
+                                               (current-time)))))
         (window-start-line nil)
         (window-region-beginning-line nil)
         (window-region-end-line nil)
