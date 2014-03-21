@@ -52,14 +52,17 @@
         (screenshot-width 0)
         (screenshot-x 0)
         (screenshot-y 0)
+        (selection-start (region-beginning))
+        (selection-end (region-end))
+        (current-point (point))
         (crop ""))
+
     (setq window-start-line (line-number-at-pos (window-start)))
-    (save-excursion
-      (goto-char (region-beginning))
-      (setq window-region-beginning-line (line-number-at-pos)))
-    (save-excursion
-      (goto-char (region-end))
-      (setq window-region-end-line (line-number-at-pos)))
+    (goto-char selection-start)
+    (setq window-region-beginning-line (line-number-at-pos))
+    (goto-char selection-end)
+    (setq window-region-end-line (line-number-at-pos))
+    (goto-char current-point)
     (setq screenshot-width (* char-width column-width))
     (setq screenshot-height (* (+ (- window-region-end-line
                                      window-region-beginning-line)
@@ -74,9 +77,11 @@
                        screenshot-height
                        screenshot-x
                        screenshot-y))
+
     (deactivate-mark t)
+    (redisplay t)
     (call-process "import" nil nil nil
                   "-window" window-id
-                  "-crop" crop
-                  "-quality" "100"
+                  "-crop" crop 
+                  "-quality" "100" 
                   filename)))
