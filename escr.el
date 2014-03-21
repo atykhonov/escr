@@ -82,7 +82,7 @@ will looks like a little bit better.")
       (if (y-or-n-p (format "Directory %s does not exist. Create it?"
                             escr-screenshot-directory))
           (make-directory escr-screenshot-directory)
-        (error "Directory must be existed.")))
+        (error "Please create the directory first.")))
 
     (setq window-start-line (line-number-at-pos (window-start)))
 
