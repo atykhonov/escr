@@ -39,7 +39,12 @@
 
 (defvar escr-column 80
   "Indicates how many columns include to make visible in the
-  screenshot.")
+screenshot.")
+
+(defvar escr-x-margin 0
+  "X margin. If 0 then a screenshot will probably include left
+Emacs border. You may want to increase that value so a screenshot
+will looks like a little bit better.")
 
 (defun escr-shot ()
   (interactive)
@@ -74,7 +79,7 @@
                                      window-region-beginning-line)
                                   1)
                                char-height))
-    (setq screenshot-x 0)
+    (setq screenshot-x escr-x-margin)
     (setq screenshot-y (* (- window-region-beginning-line
                              window-start-line)
                           char-height))
