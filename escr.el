@@ -60,11 +60,15 @@
         (crop ""))
 
     (setq window-start-line (line-number-at-pos (window-start)))
+
     (goto-char selection-start)
     (setq window-region-beginning-line (line-number-at-pos))
+
     (goto-char selection-end)
     (setq window-region-end-line (line-number-at-pos))
+
     (goto-char current-point)
+
     (setq screenshot-width (* char-width escr-column))
     (setq screenshot-height (* (+ (- window-region-end-line
                                      window-region-beginning-line)
@@ -74,6 +78,7 @@
     (setq screenshot-y (* (- window-region-beginning-line
                              window-start-line)
                           char-height))
+
     (setq crop (format "%sx%s+%s+%s"
                        screenshot-width
                        screenshot-height
