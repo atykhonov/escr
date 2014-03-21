@@ -41,10 +41,8 @@
   "Indicates how many columns include to make visible in the
 screenshot.")
 
-(defvar escr-x-margin 0
-  "X margin. If 0 then a screenshot will probably include left
-Emacs border. You may want to increase that value so a screenshot
-will looks like a little bit better.")
+(defvar escr-exclude-fringes t
+  "Exclude fringes from the screenshot.")
 
 (defvar escr-screenshot-directory (concat
                                    user-emacs-directory
@@ -99,7 +97,10 @@ will looks like a little bit better.")
                                      window-region-beginning-line)
                                   1)
                                char-height))
-    (setq screenshot-x escr-x-margin)
+
+    (when escr-exclude-fringes
+      (setq screenshot-x (nth 0 (window-fringes))))
+
     (setq screenshot-y (* (- window-region-beginning-line
                              window-start-line)
                           char-height))
