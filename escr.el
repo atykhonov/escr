@@ -46,12 +46,19 @@ screenshot.")
 Emacs border. You may want to increase that value so a screenshot
 will looks like a little bit better.")
 
+(defvar escr-screenshot-directory (concat
+                                   user-emacs-directory
+                                   "screenshots")
+  "Path to directory where screenshots are going to be stored.")
+
 (defun escr-shot ()
   (interactive)
   (let ((window-id (frame-parameter (selected-frame) 'window-id))
         (char-height (frame-char-height))
         (char-width (frame-char-width))
-        (filename "/home/demi/test2.jpg")
+        (filename (expand-file-name
+                   (concat escr-screenshot-directory
+                           "/test2.jpg")))
         (window-start-line nil)
         (window-region-beginning-line nil)
         (window-region-end-line nil)
@@ -63,6 +70,12 @@ will looks like a little bit better.")
         (selection-end (region-end))
         (current-point (point))
         (crop ""))
+
+    (when (not (file-exists-p escr-screenshot-directory))
+      (if (y-or-n-p (format "Directory %s does not exist. Create it?"
+                            escr-screenshot-directory))
+          (make-directory escr-screenshot-directory)
+        (error "Directory must be existed.")))
 
     (setq window-start-line (line-number-at-pos (window-start)))
 
