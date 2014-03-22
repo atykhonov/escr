@@ -54,7 +54,7 @@ screenshot.")
 
 
 
-(defun escr-shot ()
+(defun escr-region-screenshot ()
   (interactive)
   (let ((window-id (frame-parameter (selected-frame) 'window-id))
         (char-height (frame-char-height))
