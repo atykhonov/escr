@@ -76,11 +76,7 @@ screenshot.")
         (current-point (point))
         (crop ""))
 
-    (when (not (file-exists-p escr-screenshot-directory))
-      (if (y-or-n-p (format "Directory %s does not exist. Create it?"
-                            escr-screenshot-directory))
-          (make-directory escr-screenshot-directory)
-        (error "Please create the directory first.")))
+    (escr--check-directory)
 
     (setq window-start-line (line-number-at-pos (window-start)))
 
@@ -118,6 +114,13 @@ screenshot.")
                   "-crop" crop 
                   "-quality" "100" 
                   filename)))
+
+(defun escr--check-directory ()
+  (when (not (file-exists-p escr-screenshot-directory))
+    (if (y-or-n-p (format "Directory %s does not exist. Create it?"
+                          escr-screenshot-directory))
+        (make-directory escr-screenshot-directory)
+      (error "Please create the directory first."))))
 
 (defun esrc-org-babel-after-execute-hook ()
   (interactive)
