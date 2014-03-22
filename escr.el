@@ -122,7 +122,7 @@ screenshot.")
         (make-directory escr-screenshot-directory)
       (error "Please create the directory first."))))
 
-(defun esrc-org-babel-after-execute-hook ()
+(defun escr-org-babel-after-execute-hook ()
   (interactive)
   (let* ((info (org-babel-get-src-block-info))
          (lang (nth 0 info))
@@ -143,7 +143,7 @@ screenshot.")
         (escr-shot)
         (kill-buffer)))))
 
-(defun esrc-setup ()
+(defun escr-setup ()
   (interactive)
   (add-hook 'org-babel-after-execute-hook
-            'esrc-org-babel-after-execute-hook))
+            'escr-org-babel-after-execute-hook))
