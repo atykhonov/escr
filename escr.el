@@ -115,6 +115,49 @@ screenshot.")
                   "-quality" "100" 
                   filename)))
 
+(defun escr-window-screenshot ()
+  (interactive)
+  (let ((window-id (frame-parameter (selected-frame) 'window-id))
+        (char-height (frame-char-height))
+        (char-width (frame-char-width))
+        (filename (expand-file-name
+                   (concat escr-screenshot-directory
+                           "/"
+                           (format-time-string escr-filename-format
+                                               (current-time)))))
+        (window-start-line nil)
+        (window-region-beginning-line nil)
+        (window-region-end-line nil)
+        (screenshot-height 0)
+        (screenshot-width 0)
+        (screenshot-x 0)
+        (screenshot-y 0)
+        (selection-start (region-beginning))
+        (selection-end (region-end))
+        (current-point (point))
+        (crop ""))
+
+    (escr--check-directory)
+
+    (setq screenshot-width (nth 2 (window-pixel-edges)))
+    (setq screenshot-height (nth 3 (window-pixel-edges)))
+
+    (setq screenshot-x (nth 0 (window-pixel-edges)))
+
+    (setq screenshot-y (nth 1 (window-pixel-edges)))
+
+    (setq crop (format "%sx%s+%s+%s"
+                       screenshot-width
+                       screenshot-height
+                       screenshot-x
+                       screenshot-y))
+
+    (call-process "import" nil nil nil
+                  "-window" window-id
+                  "-crop" crop 
+                  "-quality" "100"
+                  filename)))
+
 (defun escr--check-directory ()
   (when (not (file-exists-p escr-screenshot-directory))
     (if (y-or-n-p (format "Directory %s does not exist. Create it?"
