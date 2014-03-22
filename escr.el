@@ -186,7 +186,7 @@ screenshot.")
           (funcall mode))
         (jit-lock-fontify-now (point-min) (point-max))
         (mark-whole-buffer)
-        (escr-shot)
+        (escr-region-screenshot)
         (kill-buffer)))))
 
 (defun escr-setup ()
