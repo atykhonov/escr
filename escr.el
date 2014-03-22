@@ -52,6 +52,9 @@ screenshot.")
 (defvar escr-filename-format "%Y-%m-%d-%H%M%S.png"
   "Screenshots filename format.")
 
+(defvar escr-screenshot-quality "100"
+  "Screenshot image quality.")
+
 
 
 (defun escr-region-screenshot ()
@@ -112,7 +115,7 @@ screenshot.")
     (call-process "import" nil nil nil
                   "-window" window-id
                   "-crop" crop 
-                  "-quality" "100" 
+                  "-quality" escr-screenshot-quality 
                   filename)))
 
 (defun escr-window-screenshot ()
@@ -155,7 +158,7 @@ screenshot.")
     (call-process "import" nil nil nil
                   "-window" window-id
                   "-crop" crop 
-                  "-quality" "100"
+                  "-quality" escr-screenshot-quality
                   filename)))
 
 (defun escr--check-directory ()
