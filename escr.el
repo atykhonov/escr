@@ -38,7 +38,8 @@
 ;;; Code:
 
 (defvar escr-exclude-fringes t
-  "Exclude fringes from the screenshot.")
+  "Exclude fringes from the screenshot. It does work only for
+`escr-region-screenshot'.")
 
 (defvar escr-screenshot-directory (concat
                                    user-emacs-directory
