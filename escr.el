@@ -98,6 +98,13 @@ If integer, then that value means how many columns screenshot will contain.")
         (setq screenshot-width (* char-width escr-screenshot-width))
       (setq screenshot-width (nth 2 (window-pixel-edges))))
 
+    (when escr-exclude-fringes
+      (setq screenshot-width (- screenshot-width
+                                (nth 0 (window-fringes))))
+      (when (null escr-screenshot-width)
+        (setq screenshot-width (- screenshot-width
+                                  (nth 1 (window-fringes))))))
+
     (setq screenshot-height (* (+ (- window-region-end-line
                                      window-region-beginning-line)
                                   1)
