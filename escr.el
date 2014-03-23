@@ -37,10 +37,6 @@
 
 ;;; Code:
 
-(defvar escr-column 80
-  "Indicates how many columns include to make visible in the
-screenshot.")
-
 (defvar escr-exclude-fringes t
   "Exclude fringes from the screenshot.")
 
@@ -51,6 +47,12 @@ screenshot.")
 
 (defvar escr-filename-format "%Y-%m-%d-%H%M%S.png"
   "Screenshots filename format.")
+
+(defvar escr-screenshot-width 80
+  "Screenshot width. It does work only for `escr-region-screenshot'.
+
+If nil, then screenshot will be of current window width.
+If integer, then that value means how many columns screenshot will contain.")
 
 (defvar escr-screenshot-quality "100"
   "Screenshot image quality.")
@@ -91,7 +93,10 @@ screenshot.")
 
     (goto-char current-point)
 
-    (setq screenshot-width (* char-width escr-column))
+    (if (integerp escr-screenshot-width)
+        (setq screenshot-width (* char-width escr-screenshot-width))
+      (setq screenshot-width (nth 2 (window-pixel-edges))))
+
     (setq screenshot-height (* (+ (- window-region-end-line
                                      window-region-beginning-line)
                                   1)
