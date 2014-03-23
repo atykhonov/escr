@@ -1,4 +1,4 @@
-;;; escr.el --- Tool for making buffers screenshots.
+;;; escr.el --- Tool for making screenshots from Emacs' frames, windows and regions.
 
 ;; Copyright (C) 2014 Andrey Tykhonov <atykhonov@gmail.com>
 
