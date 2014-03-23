@@ -31,14 +31,16 @@
 ;; lines to your `.emacs' file:
 
 ;; (require 'escr)
-;; (global-set-key "\C-cs" 'escr-shot)
+;; (global-set-key (kbd "C-c C-e r") 'escr-region-screenshot)
+;; (global-set-key (kbd "C-c C-e f") 'escr-frame-screenshot)
+;; (global-set-key (kbd "C-c C-e w") 'escr-window-screenshot)
 ;;
 ;; Change the key bindings to your liking.
 
 ;;; Code:
 
 (defvar escr-exclude-fringes t
-  "Exclude fringes from the screenshot. It does work only for
+  "Exclude fringes from the screenshot.  It does work only for
 `escr-region-screenshot'.")
 
 (defvar escr-screenshot-directory (concat
@@ -50,7 +52,7 @@
   "Screenshots filename format.")
 
 (defvar escr-screenshot-width 80
-  "Screenshot width. It does work only for `escr-region-screenshot'.
+  "Screenshot width.  It does work only for `escr-region-screenshot'.
 
 If nil, then screenshot will be of current window width.
 If integer, then that value means how many columns screenshot will contain.")
@@ -61,6 +63,9 @@ If integer, then that value means how many columns screenshot will contain.")
 
 
 (defun escr-region-screenshot ()
+  "Make screenshot from the current region.  Please note that it
+is possible to make screenshot only from the text which is
+visible on the screen."
   (interactive)
   (let ((window-id (frame-parameter (selected-frame) 'window-id))
         (char-height (frame-char-height))
@@ -128,6 +133,7 @@ If integer, then that value means how many columns screenshot will contain.")
                       screenshot-height)))
 
 (defun escr-window-screenshot ()
+  "Make screenshot from the current window."
   (interactive)
   (escr--check-directory)
   (escr--screenshot (nth 0 (window-pixel-edges))
@@ -136,6 +142,7 @@ If integer, then that value means how many columns screenshot will contain.")
                     (nth 3 (window-pixel-edges))))
 
 (defun escr-frame-screenshot ()
+  "Make screenshot from the current frame."
   (interactive)
   (escr--check-directory)
   (escr--screenshot 1 1 
@@ -171,6 +178,9 @@ If integer, then that value means how many columns screenshot will contain.")
       (error "Please create the directory first."))))
 
 (defun escr-org-babel-after-execute-hook ()
+  "Hook for org-babel which allows to take a screenshot for a
+org-babel block.  Such block needs to have `scs' param with value
+\"yes\"."
   (interactive)
   (let* ((info (org-babel-get-src-block-info))
          (lang (nth 0 info))
@@ -193,6 +203,7 @@ If integer, then that value means how many columns screenshot will contain.")
         (kill-buffer)))))
 
 (defun escr-setup ()
+  "Setup hook for org-babel."
   (interactive)
   (add-hook 'org-babel-after-execute-hook
             'escr-org-babel-after-execute-hook))
