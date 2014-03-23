@@ -182,6 +182,7 @@ visible on the screen."
 org-babel block.  Such block needs to have `scs' param with value
 \"yes\"."
   (interactive)
+  (require 'ob-core)
   (let* ((info (org-babel-get-src-block-info))
          (lang (nth 0 info))
          (mode (intern (format "%s-mode" lang)))
@@ -205,6 +206,7 @@ org-babel block.  Such block needs to have `scs' param with value
 (defun escr-setup ()
   "Setup hook for org-babel."
   (interactive)
+  (require 'ob-core)
   (add-hook 'org-babel-after-execute-hook
             'escr-org-babel-after-execute-hook))
 
