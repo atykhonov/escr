@@ -72,8 +72,8 @@ screenshot.")
         (window-region-end-line nil)
         (screenshot-height 0)
         (screenshot-width 0)
-        (screenshot-x 0)
-        (screenshot-y 0)
+        (screenshot-x (nth 0 (window-pixel-edges)))
+        (screenshot-y (nth 1 (window-pixel-edges)))
         (selection-start (region-beginning))
         (selection-end (region-end))
         (current-point (point))
@@ -98,11 +98,13 @@ screenshot.")
                                char-height))
 
     (when escr-exclude-fringes
-      (setq screenshot-x (nth 0 (window-fringes))))
+      (setq screenshot-x (+ screenshot-x
+                            (nth 0 (window-fringes)))))
 
-    (setq screenshot-y (* (- window-region-beginning-line
-                             window-start-line)
-                          char-height))
+    (setq screenshot-y (+ screenshot-y
+                          (* (- window-region-beginning-line
+                                window-start-line)
+                             char-height)))
 
     (deactivate-mark t)
     (redisplay t)
