@@ -196,3 +196,8 @@ If integer, then that value means how many columns screenshot will contain.")
   (interactive)
   (add-hook 'org-babel-after-execute-hook
             'escr-org-babel-after-execute-hook))
+
+
+(provide 'escr)
+
+;;; escr.el ends here
