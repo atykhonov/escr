@@ -34,6 +34,9 @@ image quality).
 
 ### Installation
 
+*Note:* This package depends on ImageMagick `import` command-line tool. Install
+ `ImageMagick` first (`import` is a part of it).
+
 Assuming that the file `escr.el` is somewhere on the load path, add the following
 lines to your `.emacs` file:
 
