@@ -27,9 +27,13 @@
 
 ;; This tool allows to make screenshots from Emacs' frames, windows and regions.
 ;;
-;; Use `escr-frame-screenshot' command to make a screenshot from the current
-;; frame. Use `escr-window-screenshot' command to make a screenshot from the current
-;; window. Use `escr-region-screenshot' command to make a screenshot from the current
+;; Usage
+;;
+;; - Use `escr-frame-screenshot' command to make a screenshot from the current
+;; frame.
+;; - Use `escr-window-screenshot' command to make a screenshot from the current
+;; window.
+;; - Use `escr-region-screenshot' command to make a screenshot from the current
 ;; region.
 ;;
 ;; Customization:
@@ -43,10 +47,10 @@
 ;;
 ;; Set `escr-screenshot-directory' to any directory where you would like screenshots
 ;; to be stored. Default directory is "~/.emacs.d/screenshots/". If directory doesn't
-;; exist you'll be prompted to create the directory.
+;; exist you'll be prompted to create that directory.
 ;;
 ;; Change `escr-screenshot-format' to the desired filename format. Default is
-;; `%Y-%m-%d-%H%M%S.png'. (Read `format-time-string' documentation for details).
+;; `%Y-%m-%d-%H%M%S.png' (Read `format-time-string' documentation for details).
 ;;
 ;; Set `escr-screenshot-quality' to desired image quality. Default is 100 (maximum
 ;; image quality).
@@ -203,39 +207,6 @@ visible on the screen."
                           escr-screenshot-directory))
         (make-directory escr-screenshot-directory)
       (error "Please create the directory first."))))
-
-(defun escr-org-babel-after-execute-hook ()
-  "Hook for org-babel which allows to take a screenshot for a
-org-babel block.  Such block needs to have `scs' param with value
-\"yes\"."
-  (interactive)
-  (require 'ob-core)
-  (let* ((info (org-babel-get-src-block-info))
-         (lang (nth 0 info))
-         (mode (intern (format "%s-mode" lang)))
-         (params (nth 2 info))
-         (scs-param (cdr (assoc :scs params)))
-         (escr-buffer nil)
-         (buffer-name "*Escr*"))
-    (when (string= scs-param "yes")
-      (setq escr-buffer (get-buffer-create buffer-name))
-      (with-current-buffer escr-buffer
-        (switch-to-buffer escr-buffer)
-        (erase-buffer)
-        (insert body)
-        (when (fboundp mode)
-          (funcall mode))
-        (jit-lock-fontify-now (point-min) (point-max))
-        (mark-whole-buffer)
-        (escr-region-screenshot)
-        (kill-buffer)))))
-
-(defun escr-setup ()
-  "Setup hook for org-babel."
-  (interactive)
-  (require 'ob-core)
-  (add-hook 'org-babel-after-execute-hook
-            'escr-org-babel-after-execute-hook))
 
 
 (provide 'escr)
