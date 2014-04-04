@@ -1,4 +1,5 @@
-;;; escr.el --- Tool for making screenshots from Emacs' frames, windows and regions.
+;;; escr.el --- Tool for taking a screen shot of the Emacs' frames, windows and
+;;; regions.
 
 ;; Copyright (C) 2014 Andrey Tykhonov <atykhonov@gmail.com>
 
@@ -25,27 +26,28 @@
 
 ;;; Commentary:
 
-;; This tool allows to make screenshots from Emacs' frames, windows and regions.
+;; This tool allows to take a screen shot of the Emacs' frames, windows and regions.
 ;;
-;; Usage
+;; Usage:
 ;;
-;; - Use `escr-frame-screenshot' command to make a screenshot from the current
-;; frame.
-;; - Use `escr-window-screenshot' command to make a screenshot from the current
+;; - Use `escr-frame-screenshot' command to take a screen shot of the current frame.
+;;
+;; - Use `escr-window-screenshot' command to take a screen shot of the current
 ;; window.
-;; - Use `escr-region-screenshot' command to make a screenshot from the current
+;;
+;; - Use `escr-region-screenshot' command to take a screen shot of the current
 ;; region.
 ;;
 ;; Customization:
 ;;
-;; Set `escr-exclude-fringes' to `t' if you want to exclude fringes from the
-;; screenshot. This variable does work only for `escr-region-screenshot'.
+;; Set `escr-exclude-fringes' to `t' if you want to exclude fringes from a screen
+;; shot. This variable does work only for `escr-region-screenshot'.
 ;;
-;; Set `escr-screenshot-width' to nil if you want to get screenshots of current
-;; window width. And set to integer value if you want limit screenshot to the number
+;; Set `escr-screenshot-width' to nil if you want to take a screen shot of current
+;; window width. And set to integer value if you want limit screen shot to the number
 ;; of maximum column. This variable does work only for `escr-region-screenshot'.
 ;;
-;; Set `escr-screenshot-directory' to any directory where you would like screenshots
+;; Set `escr-screenshot-directory' to any directory where you would like screen shots
 ;; to be stored. Default directory is "~/.emacs.d/screenshots/". If directory doesn't
 ;; exist you'll be prompted to create that directory.
 ;;
