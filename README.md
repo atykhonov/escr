@@ -45,3 +45,9 @@ lines to your `.emacs` file:
 ```
 
 Change the key bindings to your liking.
+
+### Contribution
+
+Contribution is much welcome! When adding new features, please write tests for them!
+
+Thank you! And Enjoy!
