@@ -51,6 +51,8 @@ Change the key bindings to your liking.
 
 ### Contribution
 
-Contribution is much welcome! When adding new features, please write tests for them!
+All contributions are much welcome and appreciated!
+
+
 
 Thank you! And Enjoy!
