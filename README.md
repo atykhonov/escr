@@ -1,4 +1,4 @@
-# escr - tool for taking a screen shot of the Emacs' frames, windows and regions.
+# escr
 
 ### About
 
